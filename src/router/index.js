@@ -18,6 +18,16 @@ const router = createRouter({
       path: '/motogpmotorsport',
       name: 'motogpmotorsport',
       component: ()=> import('../views/Motogpmotorsport.vue')
+    },
+    {
+      path: '/cambioDeMonedas',
+      name: 'cambioDeMonedas',
+      component: ()=> import('../views/CambioDeMonedas.vue')
+    },
+    {
+      path: '/motogp',
+      name: 'motogp',
+      component: ()=> import('../views/motoGp.vue')
     }
   ]
 })

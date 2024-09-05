@@ -1,11 +1,47 @@
-*{
+/* Resetear estilos predefinidos de todos los elementos */
+* {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
   font-family: monospace;
   font-size: 18px;
 }
 
-body{
+/* Estilos globales para el cuerpo */
+body {
   margin: 0;
   padding: 20px;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+/* Estilos personalizados para los enlaces */
+a, .router-link-active, .router-link-exact-active {
+  text-decoration: none;
+  color: inherit;
+  cursor: progress;
+}
+
+a:hover, .router-link-active:hover, .router-link-exact-active:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para párrafos */
+p {
+  width: 50%;
+  word-wrap: break-word;
+  margin: 20px 10%;
+  font-size: 14px;
+}
+
+/* Estilo general para contenedores */
+main {
+  width: 80%;
+  margin: auto;
+}
+
+/* Dar efecto al cursor en los links */
+a:hover {
+  cursor: progress;
+  color: #33ff33;
 }

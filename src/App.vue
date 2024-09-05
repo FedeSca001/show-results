@@ -6,12 +6,14 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
     <h1>Bienvenido al Frontend de Mi Bot-Scraping</h1>
     <h2>Acceso al servidor: <a href="https://bot-scraping.onrender.com/" target="_blank">https://bot-scraping.onrender.com/</a></h2>
-    <p>Esta aplicación web está diseñada para mostrar visualmente las respuestas de solicitudes GET enviadas a un servidor alojado en Render.com. El propósito principal es proporcionar una interfaz gráfica que facilite la interpretación y análisis del contenido extraído.</p>
+    <h3>Y al repositorio github: <a href="https://github.com/FedeSca001/bot-scraping" target="_blank">https://github.com/FedeSca001/bot-scraping</a></h3>
     <nav>
       <RouterLink to="/">Inicio</RouterLink>
       <RouterLink to="/acercaDe">Acerca de</RouterLink>
       <span>| Rutas:</span>
+      <RouterLink to="/cambioDeMonedas">/cambio de monedas</RouterLink>
       <RouterLink to="/motogpmotorsport">/motogpmotorsport</RouterLink>
+      <RouterLink to="/motogp">/motogp</RouterLink>
     </nav>
   </header>
 
@@ -19,35 +21,64 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+/* Estilo para el header */
 header {
-  line-height: 1.5;
-}
-
-p {
-  width: 50%;
-  word-wrap: break-word; /* Asegura que el texto quepa dentro del contenedor */
-  margin: 20px; /* Centra el párrafo horizontalmente */
-}
-
-nav {
-  width: 100%;
-  background-color: rgb(136, 136, 136);
-  font-size: 18px;
   text-align: center;
-  margin: 10px 0;
+  background-color: #2d2d2d;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  color: #ffffff;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+/* Estilo de los enlaces */
+a {
+  color: #33ff33;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para los títulos */
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-family: monospace;
+  color: #33ff33;
+}
+
+h2, h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+/* Estilo para la barra de navegación */
+nav {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #444;
+  border-radius: 10px;
 }
 
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  color: #ffffff;
+  font-size: 18px;
+  padding: 0 15px;
+  transition: color 0.3s ease;
 }
 
-nav a:first-of-type {
-  border: 0;
+nav a:hover {
+  color: #33ff33;
+}
+
+span {
+  font-size: 18px;
+  color: #ffffff;
 }
 </style>
