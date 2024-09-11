@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/cambioDeMonedas">/cambio de monedas</RouterLink>
       <RouterLink to="/motogpmotorsport">/motogpmotorsport</RouterLink>
       <RouterLink to="/motogp">/motogp</RouterLink>
+      <RouterLink to="/clasificacionMotogp">/clasificacionMotogp</RouterLink>
     </nav>
   </header>
 
