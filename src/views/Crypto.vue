@@ -3,15 +3,16 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
 // Definir la referencia para almacenar la lista y el estado de carga
-const list = ref([]);
+const list = ref(null);
 const isLoading = ref(true);
 
 const getData = async () => {
   try {
     // Esperar la respuesta de la solicitud
-    const { data } = await axios.get('https://bot-scraping.onrender.com/motogpmotorsport');
+    const { data } = await axios.get('https://bot-scraping.onrender.com/crypto');
     // Asignar los datos a la lista
     list.value = data;
+   
   } catch (error) {
     console.error('Error al obtener los datos:', error);
   } finally {
@@ -24,21 +25,21 @@ onMounted(getData);
 
 <template>
   <main>
-    <h2>Noticias MotoGP motorsport</h2>
+    <h2>Cotización de criptomonedas:</h2>
     <div v-if="isLoading" class="spinner"></div>
-    <ul v-else-if="list.length > 0" class="card-list">
-      <li v-for="(item, index) in list" :key="index" class="card-item">
-        <h3>{{ item.titulo }}</h3>
-        <div v-if="item.img && item.img.length > 5" class="site-img-card">
-          <img :src="item.img" :alt="item.titulo" class="site-img-card">
-        </div>
-        <div v-else class="site-img-card fallback-img"></div>
-        <a :href="item.enlace" target="_blank">Visitar enlace</a>
+    <ul v-else-if="list" class="card-list">
+      <!-- Iteramos sobre las claves y valores del objeto, excepto la clave 'fecha' -->
+      <li v-for="(value, cryptoKey) in list" v-if="cryptoKey !== 'fecha'" :key="cryptoKey" class="card-item">
+        {{ cryptoKey }}: <span>{{ value }}</span>
       </li>
     </ul>
     <p v-else>No se encontraron datos.</p>
+    <p v-if="!isLoading && list" class="date-info">
+      Fecha de los datos: {{ list.fecha.dia }} - {{ list.fecha.hora }}hs
+    </p>
   </main>
 </template>
+
 
 <style scoped>
 /* Estilo del título */
@@ -73,55 +74,39 @@ h2 {
   justify-content: center;
   padding: 0;
   list-style-type: none;
+  margin: 0;
 }
 
 .card-item {
-  width: 300px;
+  width: 250px; /* Ajustar el tamaño de las tarjetas */
+  min-width: 250px;
   padding: 20px;
   background-color: #f4f4f43a;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  font-size: 16px;
+}
+
+.card-item span {
+  display: block;
+  font-size: 22px; /* Ajustar el tamaño del texto */
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .card-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Imagen de la card */
-.site-img-card {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-/* Cuadrado gris cuando no hay imagen */
-.fallback-img {
-  background-color: #d3d3d3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #777;
+/* Información de la fecha */
+.date-info {
+  text-align: center;
+  color: #33ff33;
   font-size: 16px;
-}
-
-/* Enlace de las cards */
-a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+  margin-top: 20px;
 }
 </style>

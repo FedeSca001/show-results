@@ -12,7 +12,6 @@ const getData = async () => {
     const { data } = await axios.get('https://bot-scraping.onrender.com/motogp');
     // Asignar los datos a la lista
     list.value = data;
-    console.log(data);
     
   } catch (error) {
     console.error('Error al obtener los datos:', error);

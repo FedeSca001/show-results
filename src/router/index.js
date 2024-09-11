@@ -33,6 +33,11 @@ const router = createRouter({
       path: '/clasificacionMotogp',
       name: 'clasificacionMotogp',
       component: ()=> import('../views/ClasificacionMotogp.vue')
+    },
+    {
+      path: '/crypto',
+      name: 'crypto',
+      component: ()=> import('../views/Crypto.vue')
     }
   ]
 })
