@@ -107,7 +107,7 @@ nav {
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  transition: background-color 0.3s;
+  transition: 0.8s;
 }
 
 .menu-toggle:hover {

@@ -6,36 +6,73 @@ import { onMounted, ref } from 'vue';
 const list = ref([]);
 const isLoading = ref(true);
 
+// Función para obtener datos de MotoGP
 const getData = async () => {
+  isLoading.value = true;
   try {
-    // Esperar la respuesta de la solicitud
     const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp');
-    // Asignar los datos a la lista
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
   } finally {
-    isLoading.value = false; // Marcar que la carga ha terminado
+    isLoading.value = false;
   }
 };
 
+// Función para obtener datos de Moto2
+const getDataMoto2 = async () => {
+  isLoading.value = true;
+  try {
+    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp/moto2');
+    list.value = data;
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+// Función para obtener datos de Moto3
+const getDataMoto3 = async () => {
+  isLoading.value = true;
+  try {
+    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp/moto3');
+    list.value = data;
+  } catch (error) {
+    console.error('Error al obtener los datos:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+// Cargar datos de MotoGP al montar el componente
 onMounted(getData);
 </script>
 
 <template>
   <main>
     <h2>Clasificación del Campeonato MotoGP</h2>
+
+    <!-- Botones para cambiar entre categorías -->
+    <div class="button-group">
+      <button @click="getData" :disabled="isLoading">Clasificación MotoGP</button>
+      <button @click="getDataMoto2" :disabled="isLoading">Clasificación Moto2</button>
+      <button @click="getDataMoto3" :disabled="isLoading">Clasificación Moto3</button>
+    </div>
+
+    <!-- Spinner para cuando está cargando -->
     <div v-if="isLoading" class="spinner"></div>
+
+    <!-- Lista de clasificaciones -->
     <ul v-else-if="list.length > 0" class="table-list">
       <li v-for="(item, index) in list" :key="index" class="table-row">
-        <!-- Columna de posición -->
         <div class="table-cell posicion">{{ item.posicion }}</div>
-        <!-- Columna de nombre del piloto -->
         <div class="table-cell piloto">{{ item.piloto }}</div>
-        <!-- Columna de puntos -->
         <div class="table-cell puntos">{{ item.puntos }} pts</div>
       </li>
     </ul>
+
+    <!-- Mensaje cuando no se encuentran datos -->
     <p v-else>No se encontraron datos.</p>
   </main>
 </template>
@@ -50,10 +87,39 @@ h2 {
   font-weight: bold;
 }
 
+/* Grupo de botones */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Estilo de los botones */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
 /* Spinner */
 .spinner {
   border: 5px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #22a6b3;
+  border-left-color: #007bff;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -67,7 +133,7 @@ h2 {
   }
 }
 
-/* Estilo de lista de la tabla */
+/* Lista de la tabla */
 .table-list {
   width: 100%;
   padding: 0;
@@ -97,44 +163,29 @@ h2 {
 .table-cell {
   padding: 10px;
   font-size: 18px;
-  flex-basis: 33%; /* Cada columna ocupa el 33% del ancho */
+  flex-basis: 33%;
   text-align: center;
 }
 
-/* Estilo para la columna de posición */
+/* Columna de posición */
 .posicion {
   font-weight: bold;
   color: #ef0014;
   font-size: 20px;
 }
 
-/* Estilo para la columna de piloto */
+/* Columna de piloto */
 .piloto {
   font-weight: 600;
   color: #333;
   text-align: left;
 }
 
-/* Estilo para la columna de puntos */
+/* Columna de puntos */
 .puntos {
   background-color: #e9ecef;
   border-radius: 5px;
   font-weight: bold;
   color: #007bff;
-}
-
-/* Enlace de las cards */
-a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
 }
 </style>
