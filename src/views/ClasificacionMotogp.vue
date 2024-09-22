@@ -68,7 +68,7 @@ onMounted(getData);
       <li v-for="(item, index) in list" :key="index" class="table-row">
         <div class="table-cell posicion">{{ item.posicion }}</div>
         <div class="table-cell piloto">{{ item.piloto }}</div>
-        <div class="table-cell puntos">{{ item.puntos }} pts</div>
+        <div class="table-cell puntos">{{ item.puntos }} pts <span class="diferencia-puntos">(-{{ list[0].puntos - item.puntos }})</span></div>
       </li>
     </ul>
 
@@ -78,6 +78,11 @@ onMounted(getData);
 </template>
 
 <style scoped>
+/*  */
+.diferencia-puntos{
+  color: red;
+  font-size: 10pt;
+}
 /* Estilo del título */
 h2 {
   margin-bottom: 20px;
