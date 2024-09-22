@@ -40,6 +40,8 @@ const toggleMenu = () => {
         <RouterLink to="/motogpmotorsport">Motogpmotorsport</RouterLink>
         <RouterLink to="/motogp">Motogp</RouterLink>
         <RouterLink to="/clasificacionMotogp">ClasificacionMotogp</RouterLink>
+        <RouterLink to="/formula1Oficial">Formula1Oficial</RouterLink>
+        <RouterLink to="/clasificacionF1">Clasificacion F1</RouterLink>
       </div>
     </nav>
   </header>

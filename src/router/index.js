@@ -38,6 +38,16 @@ const router = createRouter({
       path: '/crypto',
       name: 'crypto',
       component: ()=> import('../views/Crypto.vue')
+    },
+    {
+      path:'/formula1Oficial',
+      name: 'formula1Oficial',
+      component: ()=> import('../views/Formula1Oficial.vue')
+    },
+    {
+      path:'/clasificacionF1',
+      name: 'clasificacionF1',
+      component: ()=> import('../views/ClasificacionF1.vue')
     }
   ]
 })
