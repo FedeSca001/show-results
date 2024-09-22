@@ -48,6 +48,16 @@ const router = createRouter({
       path:'/clasificacionF1',
       name: 'clasificacionF1',
       component: ()=> import('../views/ClasificacionF1.vue')
+    },
+    {
+      path: '/formula1DiarioAS',
+      name: 'formula1DiarioAS',
+      component: ()=> import('../views/Formula1DiarioAS.vue')
+    },
+    {
+      path: '/motoGpDiarioAs',
+      name: 'formula1DiarioAS',
+      component: ()=> import('../views/MotoGPDiarioAS.vue')
     }
   ]
 })

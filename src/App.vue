@@ -35,13 +35,15 @@ const toggleMenu = () => {
 
       <!-- Contenido del menú rebatible -->
       <div v-if="isMenuOpen" class="dropdown-menu">
-        <RouterLink to="/cambioDeMonedas">Cambio de monedas</RouterLink>
-        <RouterLink to="/crypto"> Crypto</RouterLink>
-        <RouterLink to="/motogpmotorsport">Motogpmotorsport</RouterLink>
-        <RouterLink to="/motogp">Motogp</RouterLink>
-        <RouterLink to="/clasificacionMotogp">ClasificacionMotogp</RouterLink>
-        <RouterLink to="/formula1Oficial">Formula1Oficial</RouterLink>
-        <RouterLink to="/clasificacionF1">Clasificacion F1</RouterLink>
+        <RouterLink @click="toggleMenu" to="/cambioDeMonedas">Cambio de monedas</RouterLink>
+        <RouterLink @click="toggleMenu" to="/crypto"> Crypto</RouterLink>
+        <RouterLink @click="toggleMenu" to="/motogp">Moto GP</RouterLink>
+        <RouterLink @click="toggleMenu" to="/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
+        <RouterLink @click="toggleMenu" to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
+        <RouterLink @click="toggleMenu" to="/clasificacionMotogp">ClasificacionMotogp</RouterLink>
+        <RouterLink @click="toggleMenu" to="/formula1Oficial">F1 Oficial</RouterLink>
+        <RouterLink @click="toggleMenu" to="/formula1DiarioAS">F1 Diario AS</RouterLink>
+        <RouterLink @click="toggleMenu" to="/clasificacionF1">Clasificacion F1</RouterLink>
       </div>
     </nav>
   </header>

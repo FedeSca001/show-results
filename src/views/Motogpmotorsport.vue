@@ -49,67 +49,6 @@ h2 {
   text-align: center;
 }
 
-/* Spinner */
-.spinner {
-  border: 5px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #22a6b3;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Listas y cards */
-.card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 0;
-  list-style-type: none;
-}
-
-.card-item {
-  width: 300px;
-  padding: 20px;
-  background-color: #f4f4f43a;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-}
-
-.card-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagen de la card */
-.site-img-card {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-/* Cuadrado gris cuando no hay imagen */
-.fallback-img {
-  background-color: #d3d3d3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #777;
-  font-size: 16px;
-}
-
 /* Enlace de las cards */
 a {
   display: inline-block;
