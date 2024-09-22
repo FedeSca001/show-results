@@ -56,7 +56,7 @@ const router = createRouter({
     },
     {
       path: '/motoGpDiarioAs',
-      name: 'formula1DiarioAS',
+      name: 'motoGpDiarioAs',
       component: ()=> import('../views/MotoGPDiarioAS.vue')
     }
   ]

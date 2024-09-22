@@ -42,14 +42,6 @@ onMounted(getData);
 </template>
 
 <style scoped>
-/* Estilo del título */
-h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: rgb(91, 90, 90);
-  text-align: center;
-}
-
 /* Enlace de las cards */
 a {
   display: inline-block;
