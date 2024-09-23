@@ -2,15 +2,27 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
-const primerLlamado = ref('')
-// Estado del menú desplegable
-const isMenuOpen = ref(false);
-onMounted(async ()=>{
-    // Esperar la respuesta de la solicitud
+
+// Estados
+const primerLlamado = ref('nada');
+const isMenuOpen = ref(false); // Estado del menú desplegable
+const isConnected = ref(false); // Estado de conexión al servidor
+
+// Al montar el componente
+onMounted(async () => {
+  try {
+    // Hacer una solicitud al servidor
     const { data } = await axios.get('https://bot-scraping.onrender.com/');
-    // Asignar los datos a la lista
     primerLlamado.value = data;
-})
+
+    // Marcar que la conexión fue exitosa
+    isConnected.value = true;
+  } catch (error) {
+    console.error('Error al conectar con el servidor:', error);
+    isConnected.value = false; // Conexión fallida
+  }
+});
+
 // Función para alternar el menú
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -28,26 +40,33 @@ const toggleMenu = () => {
       <RouterLink to="/">Inicio</RouterLink>
       <RouterLink to="/acercaDe">Acerca de</RouterLink>
 
-      <!-- Botón del menú rebatible -->
-      <button @click="toggleMenu" class="menu-toggle">
+      <!-- Botón del menú rebatible (deshabilitado si no hay conexión) -->
+      <button 
+        @click="toggleMenu" 
+        class="menu-toggle" 
+        :disabled="!isConnected">
         {{ isMenuOpen ? 'Cerrar' : 'Abrir' }} Menú
       </button>
 
-      <!-- Contenido del menú rebatible -->
-      <div v-if="isMenuOpen" class="dropdown-menu">
+      <!-- Contenido del menú rebatible, solo si hay conexión y el menú está abierto -->
+      <div v-if="isMenuOpen && isConnected" class="dropdown-menu">
         <RouterLink @click="toggleMenu" to="/cambioDeMonedas">Cambio de monedas</RouterLink>
-        <RouterLink @click="toggleMenu" to="/crypto"> Crypto</RouterLink>
+        <RouterLink @click="toggleMenu" to="/crypto">Crypto</RouterLink>
         <RouterLink @click="toggleMenu" to="/motogp">Moto GP</RouterLink>
         <RouterLink @click="toggleMenu" to="/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
         <RouterLink @click="toggleMenu" to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
-        <RouterLink @click="toggleMenu" to="/clasificacionMotogp">ClasificacionMotogp</RouterLink>
+        <RouterLink @click="toggleMenu" to="/clasificacionMotogp">Clasificación MotoGP</RouterLink>
         <RouterLink @click="toggleMenu" to="/formula1Oficial">F1 Oficial</RouterLink>
         <RouterLink @click="toggleMenu" to="/formula1DiarioAS">F1 Diario AS</RouterLink>
-        <RouterLink @click="toggleMenu" to="/clasificacionF1">Clasificacion F1</RouterLink>
+        <RouterLink @click="toggleMenu" to="/clasificacionF1">Clasificación F1</RouterLink>
       </div>
     </nav>
+
+    <!-- Mensaje de error si no hay conexión -->
+    <p v-if="!isConnected" class="error-message">No se pudo conectar al servidor. Verifique su conexión e intente nuevamente.</p>
   </header>
 
+  <!-- Vista de rutas -->
   <RouterView />
 </template>
 
@@ -111,11 +130,16 @@ nav {
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  transition:  0.8s;
+  transition: 0.8s;
 }
 
 .menu-toggle:hover {
   background-color: #28cc28;
+}
+
+.menu-toggle:disabled {
+  background-color: #666;
+  cursor: not-allowed;
 }
 
 /* Menú desplegable */
@@ -148,5 +172,12 @@ nav {
 /* Estilo para ocultar las fronteras del último elemento */
 .dropdown-menu a:last-child {
   border-bottom: none;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
 }
 </style>
