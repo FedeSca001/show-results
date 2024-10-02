@@ -7,6 +7,7 @@ import axios from 'axios';
 const primerLlamado = ref('nada');
 const isMenuOpen = ref(false); // Estado del menú desplegable
 const isConnected = ref(false); // Estado de conexión al servidor
+const isLoading = ref(true); // Estado de carga mientras espera la conexión
 
 // Al montar el componente
 onMounted(async () => {
@@ -20,6 +21,8 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error al conectar con el servidor:', error);
     isConnected.value = false; // Conexión fallida
+  } finally {
+    isLoading.value = false; // Dejar de cargar cuando se complete la solicitud
   }
 });
 
@@ -44,7 +47,7 @@ const toggleMenu = () => {
       <button 
         @click="toggleMenu" 
         class="menu-toggle" 
-        :disabled="!isConnected">
+        :disabled="!isConnected || isLoading">
         {{ isMenuOpen ? 'Cerrar' : 'Abrir' }} Menú
       </button>
 
@@ -62,8 +65,9 @@ const toggleMenu = () => {
       </div>
     </nav>
 
-    <!-- Mensaje de error si no hay conexión -->
-    <p v-if="!isConnected" class="error-message">No se pudo conectar al servidor. Verifique su conexión e intente nuevamente.</p>
+    <!-- Mensajes según el estado de la conexión -->
+    <p v-if="isLoading" class="info-message">Estableciendo conexión con el servidor...</p>
+    <p v-else-if="!isConnected" class="error-message">Error: No se pudo conectar con el servidor.</p>
   </header>
 
   <!-- Vista de rutas -->
@@ -174,7 +178,13 @@ nav {
   border-bottom: none;
 }
 
-/* Mensaje de error */
+/* Mensajes de información y error */
+.info-message {
+  color: yellow;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
 .error-message {
   color: red;
   font-weight: bold;
