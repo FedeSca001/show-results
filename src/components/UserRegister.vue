@@ -31,7 +31,7 @@ async function submitInfo(e) {
         });
 
         // Almacenar información del usuario en localStorage
-        localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem('user', JSON.stringify({user:response.data}));
         
         // Recargar la página
         location.reload(); // Esto recargará la página actual
