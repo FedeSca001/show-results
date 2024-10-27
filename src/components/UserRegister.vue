@@ -8,34 +8,24 @@ let mail = ref('');
 
 async function submitInfo(e) {
     e.preventDefault();
-    
-    // Validación de campos vacíos
     if (!user.value || !password.value || !mail.value) {
         alert('Por favor, completa todos los campos.');
         return;
     }
-    
-    // Validación de formato de correo electrónico
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(mail.value)) {
         alert('Por favor, ingresa un correo electrónico válido.');
         return;
     }
     
-    try {
-        // Hacemos la llamada API con axios
+    try {      
         const response = await axios.post('https://bot-scraping.onrender.com/user/new', {
             user: user.value,
             pass: password.value,
             mail: mail.value
         });
-
-        // Almacenar información del usuario en localStorage
-        localStorage.setItem('user', JSON.stringify({user:response.data}));
-        
-        // Recargar la página
+        localStorage.setItem('user', JSON.stringify(response.data));
         location.reload(); // Esto recargará la página actual
-
     } catch (error) {
         console.error('Error en la solicitud:', error);
         alert('Ocurrió un error al realizar la solicitud. Por favor, intenta de nuevo.');

@@ -28,10 +28,16 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const logOut = ()=>{
-    storage.removeItem(user);
+const logOut = () => {
+  // Obtener los datos guardados en el localStorage
+  const userData = JSON.parse(localStorage.getItem('user')); // 'user' es la clave
+  
+  if (userData) {
+    userData.logued = false;
+    localStorage.setItem('user', JSON.stringify(userData));
     location.reload();
-}
+  }
+};
 </script>
 
 

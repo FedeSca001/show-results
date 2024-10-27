@@ -1,17 +1,61 @@
 <script setup>
-// Tu lógica aquí (si es necesario)
+import bcryptjs from 'bcryptjs'
+import { ref } from 'vue';
+
+// Campos de entrada del usuario
+const user = ref('');
+const pass = ref('');
+const hashedPass = ref('');
+
+// Obtener el valor del usuario almacenado en localStorage
+const storedUser = JSON.parse(localStorage.getItem('user'));
+
+// Asignar el hash de la contraseña desde localStorage si existe
+if (storedUser && storedUser.pass) {
+    hashedPass.value = storedUser.pass;
+} else {
+    console.warn('No se encontró un hash de contraseña en localStorage.');
+}
+
+async function logUser(e) {
+    e.preventDefault();
+    
+    // Validación de campos vacíos
+    if (!user.value || !pass.value || !hashedPass.value) {
+        alert('Por favor, completa todos los campos.');
+        return;
+    }
+
+    // Verificar la contraseña usando bcryptjs en el frontend
+    const passwordMatch = await bcryptjs.compare(pass.value, hashedPass.value);
+    
+    if (passwordMatch) {
+        const userData = { ...storedUser, logued: true };
+        localStorage.setItem('user', JSON.stringify(userData));
+        location.reload();
+    } else {
+        alert('Contraseña incorrecta.');
+    }
+}
+
+// Función para enviar el formulario con Enter
+function pressEnter(e) {
+    if (e.key === 'Enter') {
+        logUser(e);
+    }
+}
 </script>
 
 <template>
     <div class="form-container">
-        <form action="submit" class="form-content">
-            <label for="username">Username</label>
-            <input type="text" id="username" class="input-field" placeholder="Enter your username">
+        <form @submit="logUser" @keypress='pressEnter' class="form-content">
+            <label for="user">Usuario</label>
+            <input type="text" id="user" class="input-field" v-model="user" placeholder="Enter your username" required />
+            
+            <label for="pass">Contraseña</label>
+            <input type="password" id="pass" class="input-field" v-model="pass" placeholder="Enter your password" required />
 
-            <label for="password">Password</label>
-            <input type="password" id="password" class="input-field" placeholder="Enter your password">
-
-            <button type="submit" class="submit-btn">Submit</button>
+            <button type="submit" class="submit-btn">Iniciar Sesión</button>
         </form>
     </div>
 </template>
@@ -37,7 +81,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 400px; /* Máximo ancho del formulario */
+    max-width: 400px;
 }
 
 /* Estilo de las etiquetas */

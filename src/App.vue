@@ -4,13 +4,14 @@ import HeaderComponent from './components/Header.vue';
 import UserAdministration from './components/UserAdministration.vue';
 
 // Inicializar el usuario desde localStorage
-const userLogged = ref(localStorage.getItem('user') || null);
-
+const storedUser = localStorage.getItem('user');
+const userLogged = ref(storedUser ? JSON.parse(storedUser) : null);
 </script>
+
 
 <template>
   <div>
-    <div v-if="userLogged">
+    <div v-if="userLogged.logued">
       <HeaderComponent />
       <RouterView />
     </div>
@@ -19,7 +20,3 @@ const userLogged = ref(localStorage.getItem('user') || null);
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Agrega tus estilos aquí */
-</style>
