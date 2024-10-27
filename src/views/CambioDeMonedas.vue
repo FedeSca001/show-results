@@ -9,7 +9,7 @@ const isLoading = ref(true);
 const getData = async () => {
   try {
     // Esperar la respuesta de la solicitud
-    const { data } = await axios.get('https://bot-scraping.onrender.com/user/monedas');
+    const { data } = await axios.get('https://bot-scraping.onrender.com/monedas');
     // Asignar los datos a la lista
     list.value = data;
   } catch (error) {
