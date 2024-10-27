@@ -3,10 +3,11 @@ import { ref, onMounted } from 'vue'
 
 // Simulación de un objeto JSON para mostrar en la animación
 const jsonContent = ref(`{
-  "mensaje": "Bienvenido al mundo de la programación",
-  "objetivo": "Aprender sobre scraping y APIs",
-  "tecnologias": ["Node.js", "Express", "Vue.js", "Cheerio", "Axios"],
-  "status": "En desarrollo"
+  "welcomeMessage": "Bienvenido a tu fuente de noticias",
+  "description": "Cobertura de temas populares de hoy",
+  "categories": ["Moto Gp", "Fórmula 1", "Cryptomonedas", "Cotizaciones", "Clima"],
+  "popularTopics": ["Deporte", "Entretenimiento", "Economía global"],
+  "status": "En funcionamiento",
 }`);
 
 const displayedContent = ref('');

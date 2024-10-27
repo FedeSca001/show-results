@@ -4,7 +4,6 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 // Estados
 const primerLlamado = ref('nada');
-const isMenuOpen = ref(false);
 const isConnected = ref(false);
 const isLoading = ref(true);
 onMounted(async () => {
@@ -23,10 +22,6 @@ onMounted(async () => {
   }
 });
 
-// Función para alternar el menú
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
 
 const logOut = () => {
   // Obtener los datos guardados en el localStorage
@@ -40,48 +35,53 @@ const logOut = () => {
 };
 </script>
 
-
 <template>
-    <header>
-      <h1>Bienvenido al Frontend de Mi Bot-Scraping</h1>
-      <h2>Acceso al servidor: <a href="https://bot-scraping.onrender.com/" target="_blank">https://bot-scraping.onrender.com/</a></h2>
-      <h3>Y al repositorio github: <a href="https://github.com/FedeSca001/bot-scraping" target="_blank">https://github.com/FedeSca001/bot-scraping</a></h3>
-  
-      <!-- Enlaces visibles siempre -->
-      <nav>
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/acercaDe">Acerca de</RouterLink>
-  
-        <!-- Botón del menú rebatible (deshabilitado si no hay conexión) -->
-        <button 
-          @click="toggleMenu" 
-          class="menu-toggle" 
-          :disabled="!isConnected || isLoading">
-          {{ isMenuOpen ? 'Cerrar' : 'Abrir' }} Menú
-        </button>
-  
-        <!-- Contenido del menú rebatible, solo si hay conexión y el menú está abierto -->
-        <div v-if="isMenuOpen && isConnected" class="dropdown-menu">
-          <RouterLink @click="toggleMenu" to="/cambioDeMonedas">Cambio de monedas</RouterLink>
-          <RouterLink @click="toggleMenu" to="/crypto">Crypto</RouterLink>
-          <RouterLink @click="toggleMenu" to="/motogp">Moto GP</RouterLink>
-          <RouterLink @click="toggleMenu" to="/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
-          <RouterLink @click="toggleMenu" to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
-          <RouterLink @click="toggleMenu" to="/clasificacionMotogp">Clasificación MotoGP</RouterLink>
-          <RouterLink @click="toggleMenu" to="/formula1Oficial">F1 Oficial</RouterLink>
-          <RouterLink @click="toggleMenu" to="/formula1DiarioAS">F1 Diario AS</RouterLink>
-          <RouterLink @click="toggleMenu" to="/clasificacionF1">Clasificación F1</RouterLink>
+  <header>  
+    <!-- Enlaces visibles siempre -->
+    <nav>
+      <RouterLink to="/">Inicio</RouterLink>
+      <RouterLink to="/acercaDe">Acerca de</RouterLink>
+      
+      <!-- Menú desplegable para categorías de contenido -->
+      <div class="dropdown">
+        <button class="dropdown-button">Finanzas</button>
+        <div class="dropdown-menu">
+          <RouterLink to="/cambioDeMonedas">Cambio de monedas</RouterLink>
+          <RouterLink to="/crypto">Crypto</RouterLink>
         </div>
+      </div>
+
+      <!-- Menú desplegable para MotoGP -->
+      <div class="dropdown">
+        <button class="dropdown-button">MotoGP</button>
+        <div class="dropdown-menu">
+          <RouterLink to="/motogp">Moto GP</RouterLink>
+          <RouterLink to="/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
+          <RouterLink to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
+          <RouterLink to="/clasificacionMotogp">Clasificación MotoGP</RouterLink>
+        </div>
+      </div>
+
+      <!-- Menú desplegable para Fórmula 1 -->
+      <div class="dropdown">
+        <button class="dropdown-button">Fórmula 1</button>
+        <div class="dropdown-menu">
+          <RouterLink to="/formula1Oficial">F1 Oficial</RouterLink>
+          <RouterLink to="/formula1DiarioAS">F1 Diario AS</RouterLink>
+          <RouterLink to="/clasificacionF1">Clasificación F1</RouterLink>
+        </div>
+      </div>
+
+      <!-- Botón de Logout -->
+      <button @click="logOut" class="logout-button">Log out</button>
+    </nav>
   
-        <!-- Botón de Logout -->
-        <button @click="logOut" class="logout-button">Log out</button>
-      </nav>
-  
-      <!-- Mensajes según el estado de la conexión -->
-      <p v-if="isLoading" class="info-message">Estableciendo conexión con el servidor...</p>
-      <p v-else-if="!isConnected" class="error-message">Error: No se pudo conectar con el servidor.</p>
-    </header>
-  </template>
+    <!-- Mensajes según el estado de la conexión -->
+    <p v-if="isLoading" class="info-message">Estableciendo conexión con el servidor...</p>
+    <p v-else-if="!isConnected" class="error-message">Error: No se pudo conectar con el servidor.</p>
+  </header>
+</template>
+
   
   <style scoped>
   /* Estilo para el header */
@@ -98,7 +98,7 @@ const logOut = () => {
   a {
     color: #ffffff;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 10px;
   }
   
   a:hover {
@@ -106,53 +106,16 @@ const logOut = () => {
     color: #33ff33;
   }
   
-  /* Estilo para los títulos */
-  h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    font-family: monospace;
-    color: #33ff33;
-  }
-  
-  h2, h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  h2 {
-    font-size: 22px;
-  }
-  
   /* Estilo para la barra de navegación */
   nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin-top: 20px;
     padding: 10px;
     background-color: #444;
     border-radius: 10px;
     position: relative;
-  }
-  
-  /* Botón del menú */
-  .menu-toggle {
-    background-color: #33ff3385;
-    margin: 5px;
-    color: #000;
-    font-size: 16px;
-    font-family: monospace;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: 0.8s;
-  }
-  
-  .menu-toggle:hover {
-    background-color: #28cc28;
-  }
-  
-  .menu-toggle:disabled {
-    background-color: #666;
-    cursor: not-allowed;
   }
   
   /* Botón de Logout */
@@ -166,43 +129,64 @@ const logOut = () => {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 10px;
   }
   
   .logout-button:hover {
     background-color: #f73c3c;
-  border-color: #dbb6ab;
-  transform: scale(1.05); 
+    transform: scale(1.05); 
   }
   
   /* Menú desplegable */
-  .dropdown-menu {
-    display: flex;
-    flex-direction: column;
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-button {
     background-color: #2d2d2d;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-button:hover {
+    background-color: #444;
+    color: #33ff33;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #333;
     border: 1px solid #33ff33;
     padding: 10px;
     position: absolute;
-    top: 50px;
-    right: 0;
-    width: 40%;
-    text-align: left;
+    top: 40px;
+    width: 200px;
     border-radius: 8px;
+    text-align: left;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: flex;
   }
   
   .dropdown-menu a {
     color: #ffffff;
-    font-size: 18px;
-    padding: 10px 0;
-    border-bottom: 1px solid #33ff33;
-    transition: color 0.3s ease;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #555;
   }
   
   .dropdown-menu a:hover {
     color: #33ff33;
   }
   
-  /* Estilo para ocultar las fronteras del último elemento */
+  /* Ocultar borde inferior del último elemento */
   .dropdown-menu a:last-child {
     border-bottom: none;
   }
@@ -220,4 +204,5 @@ const logOut = () => {
     margin-top: 20px;
   }
   </style>
+  
   

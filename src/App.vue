@@ -8,10 +8,11 @@ const storedUser = localStorage.getItem('user');
 const userLogged = ref(storedUser ? JSON.parse(storedUser) : null);
 </script>
 
-
 <template>
   <div>
-    <div v-if="userLogged.logued">
+    <!-- Acceso seguro a logued -->
+    <div v-if="userLogged?.logued">
+      <h1>Bienvenido al Frontend de Mi Bot-Scraping</h1>
       <HeaderComponent />
       <RouterView />
     </div>
@@ -20,3 +21,14 @@ const userLogged = ref(storedUser ? JSON.parse(storedUser) : null);
     </div>
   </div>
 </template>
+
+<style scoped>
+  /* Estilo para los títulos */
+  h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: monospace;
+    color: #33ff33;
+  }
+</style>
