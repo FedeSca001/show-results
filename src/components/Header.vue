@@ -57,6 +57,7 @@ const logOut = () => {
         <div class="dropdown-menu">
           <RouterLink to="/motogp">Moto GP</RouterLink>
           <RouterLink to="/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
+          <RouterLink to="/motoGpMarca">Moto GP Marca</RouterLink>
           <RouterLink to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
           <RouterLink to="/clasificacionMotogp">Clasificación MotoGP</RouterLink>
         </div>

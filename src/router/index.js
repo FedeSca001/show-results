@@ -30,6 +30,11 @@ const router = createRouter({
       component: ()=> import('../views/motoGp.vue')
     },
     {
+      path: '/motoGpMarca',
+      name: 'motoGpMarca',
+      component: () => import('../views/MotoGpMarca.vue')
+    },
+    {
       path: '/clasificacionMotogp',
       name: 'clasificacionMotogp',
       component: ()=> import('../views/ClasificacionMotogp.vue')
