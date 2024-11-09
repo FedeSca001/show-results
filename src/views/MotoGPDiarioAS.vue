@@ -2,14 +2,27 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
-
+// Definir los estados reactivas
 const noticiasFormula1 = ref([]); 
 const isLoading = ref(true);
+const indexNoticas = ref(0);
 
+// Función para obtener las noticias
 const getData = async () => {
+  isLoading.value = true; // Asegúrate de que el estado de carga esté activado antes de la solicitud
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/motoGpDiarioAS');
-    noticiasFormula1.value = data;
+    const url = indexNoticas.value === 0 
+      ? 'https://bot-scraping.onrender.com/motoGpDiarioAS' 
+      : `https://bot-scraping.onrender.com/motoGpDiarioAS${indexNoticas.value}`;
+      
+    const { data } = await axios.get(url);
+    if (indexNoticas.value === 0) {
+      // Si estamos en la primera página, vaciar las noticias anteriores
+      noticiasFormula1.value = data;
+    } else {
+      // Si es una carga de más noticias, agregamos a las noticias existentes
+      noticiasFormula1.value.push(...data);
+    }
   } catch (error) {
     console.error('Error al obtener los datos:', error);
   } finally {
@@ -17,16 +30,25 @@ const getData = async () => {
   }
 };
 
+// Función para cargar más noticias
+const updateNews = () => {
+  indexNoticas.value += 1; // Incrementamos el índice para cargar la siguiente página
+  getData(); // Llamamos a getData para obtener más noticias
+};
+
 // Llamar la función para obtener los datos cuando el componente está montado
 onMounted(getData);
+
 </script>
 
 <template>
   <main>
     <h2>Noticias de Moto GP - Diario AS</h2>
     
+    <!-- Spinner de carga -->
     <div v-if="isLoading" class="spinner"></div>
 
+    <!-- Lista de noticias -->
     <ul v-else-if="noticiasFormula1.length > 0" class="card-list">
       <li v-for="(noticia, index) in noticiasFormula1" :key="index" class="card-item">
         <h3>{{ noticia.titulo }}</h3>
@@ -42,6 +64,9 @@ onMounted(getData);
         <!-- Enlace a la noticia -->
         <a :href="noticia.enlace" target="_blank">Leer más</a>
       </li>
+      
+      <!-- Botón para cargar más noticias -->
+      <button @click="updateNews">Más noticias</button>
     </ul>
 
     <!-- Mensaje si no se encuentran datos -->
@@ -50,18 +75,41 @@ onMounted(getData);
 </template>
 
 <style scoped>
-/* Enlace de las cards */
-a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s;
+/* Estilos para las cards */
+.card-list {
+  list-style-type: none;
+  padding: 0;
 }
 
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+.card-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.site-img-card {
+  width: 100%;
+  height: auto;
+}
+
+.fallback-img {
+  text-align: center;
+  padding: 20px;
+}
+
+.spinner {
+  display: block;
+  margin: auto;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
