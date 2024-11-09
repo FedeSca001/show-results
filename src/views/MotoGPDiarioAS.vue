@@ -3,19 +3,21 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
 // Definir los estados reactivas
-const noticiasFormula1 = ref([]); 
+const noticiasFormula1 = ref([]);
 const isLoading = ref(true);
 const indexNoticas = ref(0);
 
 // Función para obtener las noticias
 const getData = async () => {
-  isLoading.value = true; // Asegúrate de que el estado de carga esté activado antes de la solicitud
+  console.log(indexNoticas.value);
+  
   try {
     const url = indexNoticas.value === 0 
       ? 'https://bot-scraping.onrender.com/motoGpDiarioAS' 
-      : `https://bot-scraping.onrender.com/motoGpDiarioAS${indexNoticas.value}`;
-      
+      : `https://bot-scraping.onrender.com/motoGpDiarioAS/${indexNoticas.value}`;
+    
     const { data } = await axios.get(url);
+    
     if (indexNoticas.value === 0) {
       // Si estamos en la primera página, vaciar las noticias anteriores
       noticiasFormula1.value = data;
@@ -38,7 +40,6 @@ const updateNews = () => {
 
 // Llamar la función para obtener los datos cuando el componente está montado
 onMounted(getData);
-
 </script>
 
 <template>
@@ -50,7 +51,7 @@ onMounted(getData);
 
     <!-- Lista de noticias -->
     <ul v-else-if="noticiasFormula1.length > 0" class="card-list">
-      <li v-for="(noticia, index) in noticiasFormula1" :key="index" class="card-item">
+      <li v-for="(noticia, index) in noticiasFormula1" :key="noticia.titulo" class="card-item">
         <h3>{{ noticia.titulo }}</h3>
         
         <!-- Mostrar imagen si está disponible -->
