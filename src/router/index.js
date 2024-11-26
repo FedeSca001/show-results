@@ -63,6 +63,11 @@ const router = createRouter({
       path: '/motoGpDiarioAs',
       name: 'motoGpDiarioAs',
       component: ()=> import('../views/MotoGPDiarioAS.vue')
+    },
+    {
+      path: '/calendarioMotoGP',
+      name: 'calendarioMotoGP',
+      component: ()=> import('../views/CalendarioMotoGp.vue')
     }
   ]
 })

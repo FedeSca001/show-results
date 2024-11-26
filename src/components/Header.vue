@@ -60,6 +60,7 @@ const logOut = () => {
           <RouterLink to="/motoGpMarca">Moto GP Marca</RouterLink>
           <RouterLink to="/motogpmotorsport">Moto GP Motorsport</RouterLink>
           <RouterLink to="/clasificacionMotogp">Clasificación MotoGP</RouterLink>
+          <RouterLink to="/calendarioMotoGp">Calendario MotoGP</RouterLink>
         </div>
       </div>
 

@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import HeaderComponent from './components/Header.vue';
 import UserAdministration from './components/UserAdministration.vue';
-import ClimaComponent from './components/ClimaComponent.vue';
 
 // Inicializar el usuario desde localStorage
 const storedUser = localStorage.getItem('user');
@@ -15,7 +14,6 @@ const userLogged = ref(storedUser ? JSON.parse(storedUser) : null);
     <div v-if="userLogged?.logued">
       <h1>Bienvenido al Frontend de Mi Bot-Scraping</h1>
       <HeaderComponent />
-      <ClimaComponent/>
       <RouterView />
     </div>
     <div v-else>
