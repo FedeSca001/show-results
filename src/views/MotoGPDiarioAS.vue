@@ -12,11 +12,13 @@ const getData = async () => {
   console.log(indexNoticas.value);
   
   try {
-    const url = indexNoticas.value === 0 
-      ? 'https://bot-scraping.onrender.com/motoGpDiarioAS' 
-      : `https://bot-scraping.onrender.com/motoGpDiarioAS/${indexNoticas.value}`;
+    const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
+
+    const urlNoticias = indexNoticas.value === 0 
+      ? url+'/motoGpDiarioAS' 
+      : url+`/motoGpDiarioAS/${indexNoticas.value}`;
     
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(urlNoticias);
     
     if (indexNoticas.value === 0) {
       // Si estamos en la primera página, vaciar las noticias anteriores

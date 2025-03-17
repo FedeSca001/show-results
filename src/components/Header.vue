@@ -9,7 +9,7 @@ const isLoading = ref(true);
 onMounted(async () => {
   try {
     // Hacer una solicitud al servidor
-    const { data } = await axios.get('https://bot-scraping.onrender.com/');
+    const { data } = await axios.get(import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER);
     primerLlamado.value = data;
     
     // Marcar que la conexión fue exitosa
@@ -22,8 +22,7 @@ onMounted(async () => {
   }
 });
 
-
-const logOut = () => {
+/*const logOut = () => {
   // Obtener los datos guardados en el localStorage
   const userData = JSON.parse(localStorage.getItem('user')); // 'user' es la clave
   
@@ -32,7 +31,7 @@ const logOut = () => {
     localStorage.setItem('user', JSON.stringify(userData));
     location.reload();
   }
-};
+};*/
 </script>
 
 <template>
@@ -75,7 +74,7 @@ const logOut = () => {
       </div>
 
       <!-- Botón de Logout -->
-      <button @click="logOut" class="logout-button">Log out</button>
+      <!--<button @click="logOut" class="logout-button">Log out</button>-->
     </nav>
   
     <!-- Mensajes según el estado de la conexión -->

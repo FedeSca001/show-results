@@ -4,11 +4,11 @@ import { onMounted, ref } from 'vue';
 
 const list = ref([]);
 const isLoading = ref(true);
-
+const url = import.meta.env.VITE_HOST_LOCAL + '/calendarioMotoGp';
 const getData = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/calendarioMotoGp');
+    const { data } = await axios.get(url);
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
@@ -26,23 +26,28 @@ onMounted(getData);
     <div v-if="isLoading" class="spinner"></div>
     <ul v-else-if="list.length > 0" class="card-list">
       <li v-for="(item, index) in list" :key="index" class="card-item">
-        <img :src="item.imgCircuito" :alt="item.circuito" class="circuit-img" />
-        <h3>{{ item.granPremio }}</h3>
-        <p><strong>Circuito:</strong> {{ item.circuito }}</p>
-        <p><strong>Fecha:</strong> {{ item.fecha }}</p>
 
-        <!-- Renderización del Podium -->
-        <div class="podium">
-          <ul>
-            <li v-for="(podium, idx) in item.podium" :key="idx" class="podium-item">
-              <img :src="podium.bandera" :alt="podium.piloto" class="flag-icon" />
-              <span class="podium-carrera">{{ podium.position }}: {{ podium.piloto }}</span>
-            </li>
-          </ul>
+        <div class="card-container">
+          <div class="parte-izquierda">
+            <img :src="item.imgCircuito" :alt="item.circuito" class="circuit-img" />
+            <h3>{{ item.granPremio }}</h3>
+
+          </div>
+          <!-- Renderización del Podium -->
+          <div class="parte-derecha podium" v-if="item.podium[1]">
+            <p><strong>Circuito:</strong> {{ item.circuito }}</p>
+            <p><strong>Fecha:</strong> {{ item.fecha }}</p>
+            <ul>
+              <li v-for="(podium, idx) in item.podium" :key="idx" class="podium-item">
+                <img :src="podium.bandera" :alt="podium.piloto" class="flag-icon" />
+                <span class="podium-carrera">{{ podium.position }}: {{ podium.piloto }}</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- Tablas de Eventos MotoGP, Moto2 y Moto3 -->
-        <div class="competitions">
+        <div class="competitions" v-if="item.podium[1]">
           <h4>Eventos MotoGP</h4>
           <table>
             <thead>
@@ -103,6 +108,10 @@ onMounted(getData);
             </tbody>
           </table>
         </div>
+        <div v-else>
+          <p><strong>Circuito:</strong> {{ item.circuito }}</p>
+          <p><strong>Fecha:</strong> {{ item.fecha }}</p>
+        </div>
       </li>
     </ul>
     <p v-else>No se encontraron datos.</p>
@@ -153,13 +162,16 @@ h2 {
 }
 
 .circuit-img {
-  width: 60%;
+  width: 40%;
   height: auto;
   border-radius: 8px;
   margin-bottom: 10px;
 }
 .podium-carrera{
+  margin-left: 5px;
     font-size: 11pt;
+    font-weight: bold;
+    color: black;
 }
 h3 {
   color: #013165;
@@ -182,8 +194,33 @@ strong {
 }
 
 /* Podium styles */
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  gap: 20px;
+}
+
+.parte-izquierda {
+  flex: 1; /* Ocupa el 50% del espacio */
+
+}
+
+.parte-derecha {
+  flex: 1; /* Ocupa el 50% del espacio */
+}
+
+.circuit-img {
+  width: 100%; /* La imagen ocupa todo el ancho */
+  max-width: 400px; /* Evita que se agrande demasiado */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
 .podium {
-  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: solid rgb(0, 97, 24) 1.5px;
 }
 
 .podium ul {
@@ -192,15 +229,15 @@ strong {
 }
 
 .podium-item {
-  color: black;
   display: flex;
+  align-items: center;
   margin-bottom: 5px;
+  gap: 5px;
 }
 
 .flag-icon {
   width: 20px;
   height: 20px;
-  margin-right: 5px;
   border-radius: 50%;
 }
 

@@ -5,11 +5,11 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista y el estado de carga
 const list = ref([]);
 const isLoading = ref(true);
-
+const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
 const getData = async () => {
   try {
     // Esperar la respuesta de la solicitud
-    const { data } = await axios.get('https://bot-scraping.onrender.com/motogpMarca');
+    const { data } = await axios.get(url+'/motogpMarca');
     // Asignar los datos a la lista
     list.value = data;
   } catch (error) {

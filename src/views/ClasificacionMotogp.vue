@@ -5,12 +5,13 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista y el estado de carga
 const list = ref([]);
 const isLoading = ref(true);
+const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
 
 // Función para obtener datos de MotoGP
 const getData = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp');
+    const { data } = await axios.get(url+ '/clasificacionMotogp');
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
@@ -23,7 +24,7 @@ const getData = async () => {
 const getDataMoto2 = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp/moto2');
+    const { data } = await axios.get(url+'/clasificacionMotogp/moto2');
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
@@ -36,7 +37,7 @@ const getDataMoto2 = async () => {
 const getDataMoto3 = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionMotogp/moto3');
+    const { data } = await axios.get(url+'/clasificacionMotogp/moto3');
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos:', error);

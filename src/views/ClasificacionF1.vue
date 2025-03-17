@@ -5,12 +5,12 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista y el estado de carga
 const list = ref([]);
 const isLoading = ref(false);
-
+const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
 // Función para obtener datos de Pilotos
 const getDataPilotos = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionF1/pilotos');
+    const { data } = await axios.get(url+'/clasificacionF1/pilotos');
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos de Pilotos:', error);
@@ -23,7 +23,7 @@ const getDataPilotos = async () => {
 const getDataEquipos = async () => {
   isLoading.value = true;
   try {
-    const { data } = await axios.get('https://bot-scraping.onrender.com/clasificacionF1/equipos');
+    const { data } = await axios.get('/clasificacionF1/equipos');
     list.value = data;
   } catch (error) {
     console.error('Error al obtener los datos de Equipos:', error);
