@@ -24,7 +24,7 @@ onMounted(getData);
 
 <template>
   <main>
-    <h2>Cuenta Moto GP</h2>
+    <h2>Moto GP diario Marca</h2>
     <div v-if="isLoading" class="spinner"></div>
     <ul v-else-if="list.length > 0" class="card-list">
       <li v-for="(item, index) in list" :key="index" class="card-item">

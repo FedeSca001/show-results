@@ -10,11 +10,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/acercaDe',
-      name: 'acercaDe',
-      component: () => import('../views/AcercaDe.vue')
-    },
-    {
       path: '/motogpmotorsport',
       name: 'motogpmotorsport',
       component: ()=> import('../views/Motogpmotorsport.vue')

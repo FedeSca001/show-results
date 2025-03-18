@@ -52,25 +52,29 @@ onMounted(getData);
     <div v-if="isLoading" class="spinner"></div>
 
     <!-- Lista de noticias -->
-    <ul v-else-if="noticiasFormula1.length > 0" class="card-list">
-      <li v-for="(noticia, index) in noticiasFormula1" :key="noticia.titulo" class="card-item">
-        <h3>{{ noticia.titulo }}</h3>
+     <div v-else-if="noticiasFormula1.length> 0">
+      <ul  class="card-list">
+        <li v-for="(noticia, index) in noticiasFormula1" :key="noticia.titulo" class="card-item">
+          <h3>{{ noticia.titulo }}</h3>
+          
+          <!-- Mostrar imagen si está disponible -->
+          <div v-if="noticia.img && noticia.img.length > 5" class="site-img-card">
+            <img :src="noticia.img" :alt="noticia.titulo" class="site-img-card">
+          </div>
+          
+          <!-- Imagen por defecto si no hay imagen disponible -->
+          <div v-else class="site-img-card fallback-img">Sin imagen</div>
+          
+          <!-- Enlace a la noticia -->
+          <a :href="noticia.enlace" target="_blank">Leer más</a>
+        </li>
         
-        <!-- Mostrar imagen si está disponible -->
-        <div v-if="noticia.img && noticia.img.length > 5" class="site-img-card">
-          <img :src="noticia.img" :alt="noticia.titulo" class="site-img-card">
-        </div>
-        
-        <!-- Imagen por defecto si no hay imagen disponible -->
-        <div v-else class="site-img-card fallback-img">Sin imagen</div>
-        
-        <!-- Enlace a la noticia -->
-        <a :href="noticia.enlace" target="_blank">Leer más</a>
-      </li>
-      
-      <!-- Botón para cargar más noticias -->
-      <button @click="updateNews">Más noticias</button>
-    </ul>
+        <!-- Botón para cargar más noticias -->
+      </ul>
+      <button @click=updateNews>
+        <span class="btn-getnews"> Más Noticias </span>
+      </button>
+    </div>
 
     <!-- Mensaje si no se encuentran datos -->
     <p v-else>No se encontraron noticias.</p>
@@ -115,4 +119,38 @@ onMounted(getData);
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+button {
+  /* Variables */
+  --button_radius: 0.75em;
+  --button_color: #e8e8e8;
+  --button_outline_color: #3b8101;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+}
+
+.btn-getnews {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color);
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+button:hover .btn-getnews {
+  transform: translateY(-0.53em);
+}
+
+button:active .btn-getnews {
+  /* Push the button downwards when pressed */
+  transform: translateY(-10);
+}
+
 </style>

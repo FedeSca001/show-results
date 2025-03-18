@@ -38,9 +38,7 @@ onMounted(async () => {
   <header>  
     <!-- Enlaces visibles siempre -->
     <nav>
-      <RouterLink to="/">Inicio</RouterLink>
-      <RouterLink to="/acercaDe">Acerca de</RouterLink>
-      
+      <RouterLink to="/">Inicio</RouterLink>     
       <!-- Menú desplegable para categorías de contenido -->
       <div class="dropdown">
         <button class="dropdown-button">Finanzas</button>
