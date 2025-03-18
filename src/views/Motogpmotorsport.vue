@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista y el estado de carga
 const list = ref([]);
 const isLoading = ref(true);
-const url = import.meta.env.VITE_HOST_SERVER;
+const url = 'https://bot-scraping.onrender.com';
 
 const getData = async () => {
   try {

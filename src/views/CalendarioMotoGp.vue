@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 
 const list = ref([]);
 const isLoading = ref(true);
-const url = import.meta.env.VITE_HOST_SERVER + '/calendarioMotoGp';
+const url = 'https://bot-scraping.onrender.com' + '/calendarioMotoGp';
 const getData = async () => {
   isLoading.value = true;
   try {

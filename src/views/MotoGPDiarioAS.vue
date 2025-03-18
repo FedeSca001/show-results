@@ -12,7 +12,7 @@ const getData = async () => {
   console.log(indexNoticas.value);
   
   try {
-    const url = import.meta.env.VITE_HOST_SERVER;
+    const url = 'https://bot-scraping.onrender.com';
 
     const urlNoticias = indexNoticas.value === 0 
       ? url+'/motoGpDiarioAS' 

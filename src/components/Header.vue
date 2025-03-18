@@ -9,7 +9,7 @@ const isLoading = ref(true);
 onMounted(async () => {
   try {
     // Hacer una solicitud al servidor
-    const { data } = await axios.get(import.meta.env.VITE_HOST_SERVER);
+    const { data } = await axios.get('https://bot-scraping.onrender.com');
     primerLlamado.value = data;
     
     // Marcar que la conexión fue exitosa
