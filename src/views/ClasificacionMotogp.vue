@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista y el estado de carga
 const list = ref([]);
 const isLoading = ref(true);
-const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
+const url = import.meta.env.VITE_HOST_SERVER;
 
 // Función para obtener datos de MotoGP
 const getData = async () => {

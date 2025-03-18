@@ -12,7 +12,7 @@ const getData = async () => {
   console.log(indexNoticas.value);
   
   try {
-    const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
+    const url = import.meta.env.VITE_HOST_SERVER;
 
     const urlNoticias = indexNoticas.value === 0 
       ? url+'/motoGpDiarioAS' 

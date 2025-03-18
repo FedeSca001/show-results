@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 // Definir la referencia para almacenar la lista de noticias y el estado de carga
 const noticiasFormula1 = ref([]);  // Cambiado de 'list' a 'noticiasFormula1' para mayor claridad
 const isLoading = ref(true);  // Estado de carga
-const url = import.meta.env.VITE_HOST_LOCAL || import.meta.env.VITE_HOST_SERVER;
+const url = import.meta.env.VITE_HOST_SERVER;
 
 // Función para obtener los datos de Fórmula 1
 const getData = async () => {
