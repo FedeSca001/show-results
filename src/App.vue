@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import HeaderComponent from './components/Header.vue';
 //import UserAdministration from './components/UserAdministration.vue';
 

@@ -1,60 +1,54 @@
-<script setup>
-import axios from 'axios';
-import { onMounted, ref } from 'vue';
-
-// Definir la referencia para almacenar la lista y el estado de carga
-const list = ref([]);
-const isLoading = ref(true);
-const url = 'https://bot-scraping.onrender.com';
-
-const getData = async () => {
-  try {
-    // Esperar la respuesta de la solicitud
-    const { data } = await axios.get(url+'/motogp');
-    // Asignar los datos a la lista
-    list.value = data;
-    
-  } catch (error) {
-    console.error('Error al obtener los datos:', error);
-  } finally {
-    isLoading.value = false; // Marcar que la carga ha terminado
-  }
-};
-
-onMounted(getData);
-</script>
-
 <template>
-  <main>
-    <h2>Cuenta Moto GP</h2>
-    <div v-if="isLoading" class="spinner"></div>
-    <ul v-else-if="list.length > 0" class="card-list">
-      <li v-for="(item, index) in list" :key="index" class="card-item">
-        <h3>{{ item.titulo }}</h3>
-        <div v-if="item.img && item.img.length > 5" class="site-img-card">
-          <img :src="item.img" :alt="item.titulo" class="site-img-card">
-        </div>
-        <div v-else class="site-img-card fallback-img"></div>
-        <a :href="item.enlace" target="_blank">Visitar enlace</a>
-      </li>
-    </ul>
-    <p v-else>No se encontraron datos.</p>
-  </main>
+  <div class="grid-container">
+    <div class="section-select">
+      <RouterLink to="/motogp/motogp">Moto GP</RouterLink>
+      <RouterLink to="/motogp/motoGpDiarioAs">Moto GP Diario AS</RouterLink>
+      <RouterLink to="/motogp/motoGpMarca">Moto GP Marca</RouterLink>
+      <RouterLink to="/motogp/motogpmotorsport">Moto GP Motorsport</RouterLink>
+      <RouterLink to="/motogp/clasificacionMotogp">Clasificación MotoGP</RouterLink>
+      <RouterLink to="/motogp/calendarioMotoGp">Calendario MotoGP</RouterLink>
+    </div>
+    <div class="section-vistas">
+      <RouterView />
+    </div>
+  </div>
 </template>
 
 <style scoped>
-/* Enlace de las cards */
-a {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.2s;
+.grid-container {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  grid-template:
+    "btns" auto
+    "vistas" 1fr;
 }
 
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+.section-select {
+  grid-area: btns;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.section-vistas {
+  grid-area: vistas;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template:
+      "btns vistas" auto/
+      15% 85%;
+  }
+
+  .section-select {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 </style>

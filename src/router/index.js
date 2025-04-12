@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../components/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,59 +10,68 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/motogpmotorsport',
-      name: 'motogpmotorsport',
-      component: ()=> import('../views/Motogpmotorsport.vue')
-    },
-    {
-      path: '/cambioDeMonedas',
-      name: 'cambioDeMonedas',
-      component: ()=> import('../views/CambioDeMonedas.vue')
-    },
-    {
       path: '/motogp',
-      name: 'motogp',
-      component: ()=> import('../views/motoGp.vue')
+      component: () => import('../views/MotoGP.vue'),
+      children: [
+        {
+          path: 'motogp',
+          component: () => import('../views/motogp/motogp.vue')
+        },
+        {
+          path: 'motoGpDiarioAs',
+          component: () => import('../views/motogp/motoGpDiarioAs.vue')
+        },
+        {
+          path: 'motoGpMarca',
+          component: () => import('../views/motogp/motoGpMarca.vue')
+        },
+        {
+          path: 'motogpmotorsport',
+          component: () => import('../views/motogp/motogpmotorsport.vue')
+        },
+        {
+          path: 'clasificacionMotogp',
+          component: () => import('../views/motogp/clasificacionMotogp.vue')
+        },
+        {
+          path: 'calendarioMotoGp',
+          component: () => import('../views/motogp/calendarioMotoGp.vue')
+        }
+      ]
     },
     {
-      path: '/motoGpMarca',
-      name: 'motoGpMarca',
-      component: () => import('../views/MotoGpMarca.vue')
+      path:'/formula1',
+      name: 'formula1',
+      component: ()=> import('../views/Formula1.vue'),
+      children: [
+        {
+          path:'formula1Oficial',
+          component: () => import('../views/Formula1/Formula1Oficial.vue')
+        },
+        {
+          path:'formula1DiarioAS',
+          component: () => import('../views/Formula1/Formula1DiarioAS.vue')
+        },
+        {
+          path:'formula1Clasificacion',
+          component: () => import('../views/Formula1/ClasificacionF1.vue')
+        }
+      ]
     },
     {
-      path: '/clasificacionMotogp',
-      name: 'clasificacionMotogp',
-      component: ()=> import('../views/ClasificacionMotogp.vue')
-    },
-    {
-      path: '/crypto',
-      name: 'crypto',
-      component: ()=> import('../views/Crypto.vue')
-    },
-    {
-      path:'/formula1Oficial',
-      name: 'formula1Oficial',
-      component: ()=> import('../views/Formula1Oficial.vue')
-    },
-    {
-      path:'/clasificacionF1',
-      name: 'clasificacionF1',
-      component: ()=> import('../views/ClasificacionF1.vue')
-    },
-    {
-      path: '/formula1DiarioAS',
-      name: 'formula1DiarioAS',
-      component: ()=> import('../views/Formula1DiarioAS.vue')
-    },
-    {
-      path: '/motoGpDiarioAs',
-      name: 'motoGpDiarioAs',
-      component: ()=> import('../views/MotoGPDiarioAS.vue')
-    },
-    {
-      path: '/calendarioMotoGP',
-      name: 'calendarioMotoGP',
-      component: ()=> import('../views/CalendarioMotoGp.vue')
+      path: '/economy',
+      name: 'economy',
+      component: ()=> import('../views/Economy.vue'),
+      children: [
+        {
+          path:'cambioDeMoneda',
+          component: () => import('../views/Economy/CambioDeMonedas.vue')
+        },
+        {
+          path:'crypto',
+          component: () => import('../views/Economy/Crypto.vue')
+        }
+      ]
     }
   ]
 })
