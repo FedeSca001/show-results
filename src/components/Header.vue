@@ -39,9 +39,6 @@ onMounted(async () => {
     <nav>
       <RouterLink to="/">Inicio</RouterLink>     
       <div class="dropdown">
-        <RouterLink to="/economy"><button class="dropdown-button">Finanzas</button></RouterLink>
-      </div>
-      <div class="dropdown">
         <RouterLink to="/motogp"><button class="dropdown-button" >MotoGP</button></RouterLink> 
       </div>
       <div class="dropdown">
