@@ -62,7 +62,7 @@
 
   .section-select {
     flex-direction: column;
-    height: 100vh;         /* Alto fijo */
+    height: 400px;         /* Alto fijo */
     overflow-y: auto;      /* Scroll si los botones superan el alto */
     justify-content: flex-start; /* Muy importante: los deja arriba */
   }
