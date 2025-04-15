@@ -10,7 +10,7 @@
 /* Estilos globales para el cuerpo */
 body {
   margin: 0;
-  padding: 20px;
+  padding: 25px;
   background-color: #1a1a1a;
   color: #f0f0f0;
 }
@@ -20,10 +20,6 @@ a, .router-link-active, .router-link-exact-active {
   text-decoration: none;
   color: inherit;
   cursor: progress;
-}
-
-a:hover, .router-link-active:hover, .router-link-exact-active:hover {
-  text-decoration: underline;
 }
 
 /* Estilo para párrafos */

@@ -11,7 +11,6 @@ import HeaderComponent from './components/Header.vue';
   <div>
     <!-- Acceso seguro a logued -->
     <!--<div v-if="userLogged?.logued">-->
-      <h1>Bienvenido al Frontend de Mi Bot-Scraping</h1>
       <HeaderComponent />
       <RouterView />
     </div>

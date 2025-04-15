@@ -27,7 +27,7 @@ import { RouterLink } from 'vue-router';
 }
 
 .section-select {
-  background-color: rgb(161, 46, 0);
+  background-color: #444;
   font-size: 18pt;
   grid-area: btns;
   align-content: start;

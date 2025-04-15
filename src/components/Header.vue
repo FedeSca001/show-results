@@ -37,7 +37,7 @@ onMounted(async () => {
 <template>
   <header>  
     <nav>
-      <RouterLink to="/">Inicio</RouterLink>     
+      <RouterLink to="/" class="dropdown-button">Inicio</RouterLink>     
       <div class="dropdown">
         <RouterLink to="/motogp"><button class="dropdown-button" >MotoGP</button></RouterLink> 
       </div>
@@ -57,10 +57,7 @@ onMounted(async () => {
   /* Estilo para el header */
   header {
     text-align: center;
-    background-color: #2d2d2d;
-    padding: 20px;
     border-radius: 10px;
-    margin: 20px 0;
     color: #ffffff;
   }
   
@@ -106,11 +103,6 @@ onMounted(async () => {
     transform: scale(1.05); 
   }
   
-  /* Menú desplegable */
-  .dropdown {
-    position: relative;
-  }
-  
   .dropdown-button {
     background-color: #2d2d2d;
     color: #ffffff;
@@ -121,7 +113,7 @@ onMounted(async () => {
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
-  
+
   .dropdown-button:hover {
     background-color: #444;
     color: #33ff33;
@@ -131,13 +123,11 @@ onMounted(async () => {
   .info-message {
     color: yellow;
     font-weight: bold;
-    margin-top: 20px;
   }
   
   .error-message {
     color: red;
     font-weight: bold;
-    margin-top: 20px;
   }
   </style>
   

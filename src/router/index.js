@@ -16,32 +16,32 @@ const router = createRouter({
         {
           path: 'motogp',
           name: 'motogpPrincipal',
-          component: () => import('../views/motogp/motogp.vue')
+          component: () => import('../views/MotoGp/motoGp.vue')
         },
         {
           path: 'motoGpDiarioAs',
           name: 'motoGpDiarioAs',
-          component: () => import('../views/motogp/motoGpDiarioAs.vue')
+          component: () => import('../views/MotoGp/MotoGPDiarioAS.vue')
         },
         {
           path: 'motoGpMarca',
           name: 'motoGpMarca',
-          component: () => import('../views/motogp/motoGpMarca.vue')
+          component: () => import('../views/MotoGp/MotoGpMarca.vue')
         },
         {
           path: 'motogpmotorsport',
           name: 'motoGpMotorsport',
-          component: () => import('../views/motogp/motogpmotorsport.vue')
+          component: () => import('../views/MotoGp/Motogpmotorsport.vue')
         },
         {
           path: 'clasificacionMotogp',
           name: 'clasificacionMotogp',
-          component: () => import('../views/motogp/clasificacionMotogp.vue')
+          component: () => import('../views/MotoGp/ClasificacionMotogp.vue')
         },
         {
           path: 'calendarioMotoGp',
           name: 'calendarioMotoGp',
-          component: () => import('../views/motogp/calendarioMotoGp.vue')
+          component: () => import('../views/MotoGp/CalendarioMotoGp.vue')
         }
       ]
     },
