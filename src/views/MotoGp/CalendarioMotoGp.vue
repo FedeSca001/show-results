@@ -1,10 +1,15 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import TimesTable from '@/components/TimesTable.vue';
 
 const list = ref([]);
 const isLoading = ref(true);
+const isTimesTableVisible = ref(false);
+const hoveredCompetition = ref(null);
+const position = ref({ x: 0, y: 0 });
 const url = 'https://bot-scraping.onrender.com' + '/calendarioMotoGp';
+
 const getData = async () => {
   isLoading.value = true;
   try {
@@ -16,23 +21,33 @@ const getData = async () => {
     isLoading.value = false;
   }
 };
+  // Función para posicionar la tabla cerca del mouse
+  function mouseMoveHandler(e) {
+  position.value.x = e.clientX + 10; // Ajusta la posición X
+  position.value.y = e.clientY + 10; // Ajusta la posición Y
+  
+}
+const showTimesTable = (competition) => {
+  hoveredCompetition.value = competition;
+  isTimesTableVisible.value = true;  // Mostrar TimesTable cuando el mouse está sobre el evento
+};
+
 
 onMounted(getData);
 </script>
 
 <template>
-  <main>
+  <main @mousemove="mouseMoveHandler">
     <h2>Calendario MotoGP</h2>
     <div v-if="isLoading" class="spinner"></div>
     <ul v-else-if="list.length > 0" class="card-list">
       <li v-for="(item, index) in list" :key="index" class="card-item">
-
         <div class="card-container">
           <div class="parte-izquierda">
             <img :src="item.imgCircuito" :alt="item.circuito" class="circuit-img" />
             <h3>{{ item.granPremio }}</h3>
-
           </div>
+
           <!-- Renderización del Podium -->
           <div class="parte-derecha podium" v-if="item.podium[1]">
             <p><strong>Circuito:</strong> {{ item.circuito }}</p>
@@ -61,7 +76,14 @@ onMounted(getData);
               <tr v-for="(competition, idx) in item.competiciones.motoGp" :key="idx">
                 <td>{{ competition.dia }}</td>
                 <td>
-                  <a :href="competition.link" target="_blank">{{ competition.descripcion }}</a>
+                  <a :href="competition.link" target="_blank" 
+                     @mouseover="showTimesTable(competition)" 
+                     @mouseleave="hideTimesTable">
+                    {{ competition.descripcion }}
+                  </a>
+                  <!-- Renderizamos TimesTable solo cuando el mouse está sobre la competencia y TimesTable está visible -->
+                  <TimesTable v-if="isTimesTableVisible && hoveredCompetition === competition" 
+                              :data="{url:competition.link}" />
                 </td>
                 <td>{{ competition.hora }}</td>
               </tr>
@@ -81,7 +103,11 @@ onMounted(getData);
               <tr v-for="(competition, idx) in item.competiciones.moto2" :key="idx">
                 <td>{{ competition.dia }}</td>
                 <td>
-                  <a :href="competition.link" target="_blank">{{ competition.descripcion }}</a>
+                  <a :href="competition.link" target="_blank"
+                  @mouseover="showTimesTable(competition)" 
+                  @mouseleave="hideTimesTable">{{ competition.descripcion }}</a>
+                  <TimesTable v-if="isTimesTableVisible && hoveredCompetition === competition" 
+                  :data="{url:competition.link}"  />
                 </td>
                 <td>{{ competition.hora }}</td>
               </tr>
@@ -101,7 +127,11 @@ onMounted(getData);
               <tr v-for="(competition, idx) in item.competiciones.moto3" :key="idx">
                 <td>{{ competition.dia }}</td>
                 <td>
-                  <a :href="competition.link" target="_blank">{{ competition.descripcion }}</a>
+                  <a :href="competition.link" target="_blank"
+                  @mouseover="showTimesTable(competition)" 
+                  @mouseleave="hideTimesTable">{{ competition.descripcion }}</a>
+                  <TimesTable v-if="isTimesTableVisible && hoveredCompetition === competition" 
+                  :data="{url:competition.link}"  />
                 </td>
                 <td>{{ competition.hora }}</td>
               </tr>
