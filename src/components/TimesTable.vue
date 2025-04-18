@@ -41,7 +41,7 @@
   const getTimeTable = async (url) => {
     try {
       const response = await axios.get(
-        `http://localhost:5050/timeTable?url=${encodeURIComponent(url)}`
+        `https://bot-scraping.onrender.com/timeTable?url=${encodeURIComponent(url)}`
       );
       lista.value = response.data;
     } catch (error) {
