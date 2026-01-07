@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../components/HomeView.vue'
 
+// 👇 AÑADIR ESTO
+export const routeHistory = []
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -69,7 +72,7 @@ const router = createRouter({
   ]
 })
 
-// Guardamos la ruta anterior en un array
+// Guardamos la ruta anterior
 router.beforeEach((to, from, next) => {
   if (
     from.fullPath &&
