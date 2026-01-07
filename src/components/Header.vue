@@ -2,6 +2,7 @@
 import { RouterLink } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
+import GoBackHistory from '../components/GoBackHistory.vue';
 // Estados
 const primerLlamado = ref('nada');
 const isConnected = ref(false);
@@ -46,6 +47,7 @@ onMounted(async () => {
       </div>
       <!-- Botón de Logout -->
       <!--<button @click="logOut" class="logout-button">Log out</button>-->
+      <GoBackHistory />
     </nav>
     <p v-if="isLoading" class="info-message">Estableciendo conexión con el servidor...</p>
     <p v-else-if="!isConnected" class="error-message">Error: No se pudo conectar con el servidor.</p>

@@ -69,4 +69,16 @@ const router = createRouter({
   ]
 })
 
+// Guardamos la ruta anterior en un array
+router.beforeEach((to, from, next) => {
+  if (
+    from.fullPath &&
+    from.fullPath !== to.fullPath &&
+    routeHistory[routeHistory.length - 1] !== from.fullPath
+  ) {
+    routeHistory.push(from.fullPath)
+  }
+  next()
+})
+
 export default router
