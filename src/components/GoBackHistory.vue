@@ -4,23 +4,17 @@
   </button>
 </template>
 
-<script>
+<script setup>
 import { routeHistory } from '@/router'
-
-export default {
-  name: 'GoBackHistory',
-  methods: {
-    goBack() {
-      if (routeHistory.length > 0) {
-        const previousRoute = routeHistory.pop()
-        this.$router.push(previousRoute)
-        console.log(previousRoute);
-        
-      } else {
-        // Ruta por defecto si no hay historial
-        this.$router.push('/')
-      }
-    }
+import { useRouter } from 'vue-router'
+const router = useRouter();
+function goBack() {
+  if (routeHistory.length > 0) {
+    const previousRoute = routeHistory.pop()
+    router.push(previousRoute)
+    console.log(previousRoute)
+  } else {
+    router.push('/')
   }
 }
 </script>
